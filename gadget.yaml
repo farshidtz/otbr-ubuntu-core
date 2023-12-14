@@ -1,0 +1,79 @@
+volumes:
+  pc:
+    schema: gpt
+    # bootloader configuration is shipped and managed by snapd
+    bootloader: grub
+    structure:
+      - name: mbr
+        type: mbr
+        size: 440
+        update:
+          edition: 1
+        content:
+          - image: mbr.img
+        # This one should be removed in core24
+        # or if we find a way to allow updates without keeping
+        # all partitions
+      - name: BIOS Boot
+        type: 21686148-6449-6E6F-744E-656564454649
+        size: 1M
+        offset: 1M
+        update:
+          edition: 2
+      - name: ubuntu-seed
+        role: system-seed
+        filesystem: vfat
+        # UEFI will boot the ESP partition by default first
+        type: C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+        size: 1200M
+        update:
+          edition: 2
+        content:
+          - source: grubx64.efi
+            target: EFI/boot/grubx64.efi
+          - source: shim.efi.signed
+            target: EFI/boot/bootx64.efi
+      - name: ubuntu-boot
+        role: system-boot
+        filesystem: ext4
+        type: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        # whats the appropriate size?
+        size: 750M
+        update:
+          edition: 1
+        content:
+          - source: grubx64.efi
+            target: EFI/boot/grubx64.efi
+          - source: shim.efi.signed
+            target: EFI/boot/bootx64.efi
+      - name: ubuntu-save
+        role: system-save
+        filesystem: ext4
+        type: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        size: 32M
+      - name: ubuntu-data
+        role: system-data
+        filesystem: ext4
+        type: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        size: 1G
+
+defaults:
+  # openthread-border-router
+  AmezHbALZOOhReOPtKyluS5TJmySg15e:
+      # autostart: true
+      infra-if: enp0s2
+
+connections:
+  # openthread-border-router -> system
+  - plug: AmezHbALZOOhReOPtKyluS5TJmySg15e:firewall-control
+  - plug: AmezHbALZOOhReOPtKyluS5TJmySg15e:raw-usb
+  - plug: AmezHbALZOOhReOPtKyluS5TJmySg15e:network-control
+  - plug: AmezHbALZOOhReOPtKyluS5TJmySg15e:bluetooth-control
+
+  # openthread-border-router -> avahi
+  - plug: AmezHbALZOOhReOPtKyluS5TJmySg15e:avahi-control
+    slot: dVK2PZeOLKA7vf1WPCap9F8luxTk9Oll:avahi-control
+
+  # openthread-border-router -> bluez
+  - plug: AmezHbALZOOhReOPtKyluS5TJmySg15e:bluez
+    slot: JmzJi9kQvHUWddZ32PDJpBRXUpGRxvNS:service

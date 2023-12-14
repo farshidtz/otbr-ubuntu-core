@@ -1,0 +1,10 @@
+# Build resources
+parts
+prime
+stage
+*.snap
+
+# Image creationg resources
+*.signed.yaml
+*.img
+seed.manifest
