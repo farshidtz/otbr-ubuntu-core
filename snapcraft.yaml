@@ -18,8 +18,8 @@ parts:
       - pc/22
 
   # Uncomment for debug logging on QEMU only
-  # # TODO: check if there is a better way to do this:
-  # # https://ubuntu.com/core/docs/modify-kernel-options
   # kernel-options: 
   #   plugin: dump
   #   source: kernel-options/
+  # TODO: check if there is a better way to do this:
+  # https://ubuntu.com/core/docs/modify-kernel-options

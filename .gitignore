@@ -1,10 +1,11 @@
-# Build resources
+# Snap resources
 parts
 prime
 stage
 *.snap
+*.assert
 
-# Image creationg resources
+# Image creation resources
 *.signed.yaml
 *.img
 seed.manifest

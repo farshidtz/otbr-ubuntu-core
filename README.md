@@ -19,8 +19,36 @@ yq eval model.yaml -o=json | snap sign -k otbr-testing > model.signed.yaml
 
 ## Build the image
 ```shell
-ubuntu-image snap model.signed.yaml -v --validation=enforce --snap otbr-gadget_test_amd64.snap
+ubuntu-image snap model.signed.yaml -v --validation=enforce \
+    --snap otbr-gadget_test_amd64.snap
 ```
+
+It will be significantly faster and resource-friendly if rebuild the image with local snaps.
+We can do this for all the snaps listed in the model assertion, except for those
+that have default values seeded to them from the Gadget.
+For our case, we need to pull the openthread-border-router from the store,
+and during development from a branch.
+
+Download the snaps:
+```shell
+snap download pc-kernel --channel=22/stable
+snap download snapd --channel=latest/stable
+snap download core22 --channel=latest/stable
+snap download avahi --channel=22/stable
+snap download bluez --channel=22/stable
+```
+
+Then build by side-loading them:
+```shell
+ubuntu-image snap model.signed.yaml -v --validation=enforce \
+    --snap otbr-gadget_test_amd64.snap \
+    --snap pc-kernel_*.snap \
+    --snap snapd_*.snap \
+    --snap core22_*.snap \
+    --snap bluez_*.snap \
+    --snap avahi_*.snap
+```
+
 
 ## Test with QEMU
 ```shell

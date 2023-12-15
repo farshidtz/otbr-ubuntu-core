@@ -15,8 +15,8 @@ snaps:
     # We're going to build it locally and pass it to the image builder. 
     name: otbr-gadget
     type: gadget
-    # default-channel: 22/stable
-    # id: UqFziVZDHLSyO3TqSWgNBoAdHbLI4dAH
+    # default-channel:
+    # id:
 
   - name: pc-kernel
     type: kernel
@@ -28,22 +28,12 @@ snaps:
     default-channel: latest/stable
     id: PMrrV4ml8uWuEUDBT8dSGnKUYbevVhc4
 
-  # - name: core20
-  #   type: base
-  #   default-channel: latest/stable
-  #   id: DLqre5XGLbDqg9jPtiAhRRjDuPVa5X1q
-
   - name: core22
     type: base
     default-channel: latest/stable
     id: amcUKQILKXHHTlmSa7NMdnXSx02dNeeT
 
   # Apps
-  - name: openthread-border-router
-    type: app
-    default-channel: latest/edge
-    id: AmezHbALZOOhReOPtKyluS5TJmySg15e
-
   - name: avahi
     type: app
     default-channel: 22/stable
@@ -53,3 +43,8 @@ snaps:
     type: app
     default-channel: 22/stable
     id: JmzJi9kQvHUWddZ32PDJpBRXUpGRxvNS
+
+  - name: openthread-border-router
+    type: app
+    default-channel: latest/edge/uc-testing
+    id: AmezHbALZOOhReOPtKyluS5TJmySg15e
