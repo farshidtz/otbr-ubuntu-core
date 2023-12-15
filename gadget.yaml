@@ -60,10 +60,13 @@ volumes:
 defaults:
   # openthread-border-router
   AmezHbALZOOhReOPtKyluS5TJmySg15e:
+      # Set to enable and start services
       autostart: true
       # For QEMU the networking interface should be enp0s2
       # For Intel NUC 11: enp88s0, enp89s0, or wlo1
       infra-if: enp88s0
+      thread-if: wpan0
+      radio-url: "spinel+hdlc+uart:///dev/ttyACM0"
 
 connections:
   # openthread-border-router -> system
