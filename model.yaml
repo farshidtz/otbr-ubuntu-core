@@ -46,7 +46,5 @@ snaps:
 
   - name: openthread-border-router
     type: app
-    # NOTE: we need to use a version of otbr snap with modified autostart handling
-    # See: https://github.com/canonical/openthread-border-router-snap/pull/36
-    default-channel: latest/edge/autostart-fix
+    default-channel: latest/edge
     id: AmezHbALZOOhReOPtKyluS5TJmySg15e
